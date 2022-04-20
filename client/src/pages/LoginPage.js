@@ -17,6 +17,7 @@ export default function LoginPage() {
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
+                _id: res.data._id,
                 email: res.data.email,
                 name: res.data.name,
                 image: res.data.image,
