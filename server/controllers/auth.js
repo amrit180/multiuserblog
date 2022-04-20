@@ -26,3 +26,11 @@ module.exports.createOrUpdateUser = async (req, res) => {
     console.log(err);
   }
 };
+module.exports.currentUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.user.email }).exec();
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+  }
+};

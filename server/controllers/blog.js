@@ -1,15 +1,24 @@
-const blog = require("../models/blog");
 const Blog = require("../models/blog");
+const slugify = require("slugify");
 
 module.exports.createblog = async (req, res) => {
   try {
-    const { title, slug, image, body } = req.body;
-    // console.log(req.body)
+    const { title, image, body, postedBy } = req.body;
+    console.log(req.body);
+    const slug = title;
     const newblog = await new Blog({
       title,
-      slug,
+      slug: slugify(slug, {
+        replacement: "-", // replace spaces with replacement character, defaults to `-`
+        remove: /[*+~.()'"!:@]/g, // remove characters that match regex, defaults to `undefined`
+        lower: false, // convert to lower case, defaults to `false`
+        strict: false, // strip special characters except replacement, defaults to `false`
+        locale: "hi", // language code of the locale to use
+        trim: true, // trim leading and trailing replacement chars, defaults to `true`
+      }),
       image,
       body,
+      postedBy,
     }).save();
     res.json(newblog);
   } catch (err) {
